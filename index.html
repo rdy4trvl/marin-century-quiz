@@ -746,10 +746,10 @@ body {
 
   // --- GOOGLE APPS SCRIPT LOGGING ---
   // Replace this URL with your deployed Apps Script web app URL
-  var APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+  var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPTLiiixYxzCnV1jiPHHW4Ta-4hzAe0xhxouMp8ObG4xyRzW9ZwzUhhi6o8LpVLNVa0A/exec';
 
   function logQuizResult(answers, routeKey, matchPct) {
-    if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') return;
+    if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzPTLiiixYxzCnV1jiPHHW4Ta-4hzAe0xhxouMp8ObG4xyRzW9ZwzUhhi6o8LpVLNVa0A/exec') return;
     var route = routes[routeKey];
     var payload = {
       timestamp: new Date().toISOString(),
