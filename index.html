@@ -749,7 +749,7 @@ body {
   var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzPTLiiixYxzCnV1jiPHHW4Ta-4hzAe0xhxouMp8ObG4xyRzW9ZwzUhhi6o8LpVLNVa0A/exec';
 
   function logQuizResult(answers, routeKey, matchPct) {
-   if (APPS_SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') return;
+    if (APPS_SCRIPT_URL === 'https://script.google.com/macros/s/AKfycbzPTLiiixYxzCnV1jiPHHW4Ta-4hzAe0xhxouMp8ObG4xyRzW9ZwzUhhi6o8LpVLNVa0A/exec') return;
     var route = routes[routeKey];
     var payload = {
       timestamp: new Date().toISOString(),
@@ -806,6 +806,19 @@ body {
   window.mcQuizTrackClick = function(buttonName) {
     logAction('button_click', buttonName);
   };
+
+  // --- UTM TRACKING ---
+  var REDPODIUM_BASE = 'https://marincentury.redpodium.com/2026-marin-century';
+  var MC_BASE = 'https://marincentury.com';
+
+  function buildUTM(baseUrl, content) {
+    var sep = baseUrl.indexOf('?') === -1 ? '?' : '&';
+    return baseUrl + sep +
+      'utm_source=quiz' +
+      '&utm_medium=referral' +
+      '&utm_campaign=route-quiz' +
+      '&utm_content=' + encodeURIComponent(content);
+  }
 
   // --- ROUTE DATA ---
   var routes = {
@@ -992,7 +1005,7 @@ body {
           '</div>' +
         '</div>' +
         '<a href="mailto:Volunteers@MarinCentury.com?subject=' + encodeURIComponent("I'm interested in Volunteering at the best Cycling event") + '" class="mc-quiz-register-btn" style="background:var(--mc-gold);box-shadow:0 4px 16px rgba(229,168,23,0.3);" onclick="mcQuizTrackClick(\'volunteer_email\')">&#x1F64C; Volunteer for the Marin Century</a>' +
-        '<a href="https://marincentury.com" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
+        '<a href="' + buildUTM(MC_BASE, 'volunteer') + '" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
         '<div class="mc-quiz-retake" onclick="mcQuizRetake()">&#x21BB; Retake quiz</div>' +
       '</div>';
 
@@ -1061,8 +1074,8 @@ body {
           '<span class="mc-quiz-star" onclick="mcQuizRate(5)">&#x2B50;</span>' +
         '</div>' +
       '</div>' +
-      '<a href="https://marincentury.redpodium.com/2026-marin-century?_gl=1*145pykm*_ga*MTk0OTE1NjY0NC4xNzY4MzUyNjIw*_ga_D8T7SPST03*czE3NzEyMDU4NDAkbzI4JGcwJHQxNzcxMjA1ODQwJGo2MCRsMCRoMA.." class="mc-quiz-register-btn" onclick="mcQuizTrackClick(\'register\')">&#x1F6B4; Register for the ' + route.name + '</a>' +
-      '<a href="https://marincentury.com" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
+      '<a href="' + buildUTM(REDPODIUM_BASE, winnerKey) + '" class="mc-quiz-register-btn" onclick="mcQuizTrackClick(\'register\')">&#x1F6B4; Register for the ' + route.name + '</a>' +
+      '<a href="' + buildUTM(MC_BASE, winnerKey) + '" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
       '<div class="mc-quiz-result-alt">' +
         '<div class="mc-quiz-result-alt-label">Also a great fit for you</div>' +
         '<div class="mc-quiz-result-alt-routes">' +
@@ -1096,8 +1109,8 @@ body {
         '<div class="mc-quiz-result-stat"><div class="mc-quiz-result-stat-value">' + route.time + '</div><div class="mc-quiz-result-stat-label">Est. Time</div></div>' +
       '</div>' +
       '<p class="mc-quiz-result-desc">' + route.desc + '</p>' +
-      '<a href="https://marincentury.redpodium.com/2026-marin-century?_gl=1*145pykm*_ga*MTk0OTE1NjY0NC4xNzY4MzUyNjIw*_ga_D8T7SPST03*czE3NzEyMDU4NDAkbzI4JGcwJHQxNzcxMjA1ODQwJGo2MCRsMCRoMA.." class="mc-quiz-register-btn" onclick="mcQuizTrackClick(\'register\')">&#x1F6B4; Register for the ' + route.name + '</a>' +
-      '<a href="https://marincentury.com" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
+      '<a href="' + buildUTM(REDPODIUM_BASE, key) + '" class="mc-quiz-register-btn" onclick="mcQuizTrackClick(\'register\')">&#x1F6B4; Register for the ' + route.name + '</a>' +
+      '<a href="' + buildUTM(MC_BASE, key) + '" class="mc-quiz-learn-more-btn" target="_blank" onclick="mcQuizTrackClick(\'learn_more\')">&#x1F30A; Learn more at MarinCentury.com</a>' +
       '<div style="margin-top:20px;">' +
         '<div class="mc-quiz-retake" onclick="mcQuizRetake()">&#x21BB; Retake quiz</div>' +
       '</div>' +
